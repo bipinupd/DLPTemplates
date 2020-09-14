@@ -7,17 +7,16 @@ steps:
         - |
           git clone https://github.com/bipinupd/DLPTemplates.git
           cd DLPTemplates/
-          git checkout $_BRANCHNAME
-          git config pull.rebase false
-          git pull origin $_BRANCHNAME
-          git diff --name-only $_BRANCHNAME master -- / > /workspace/dlp-diff.txt
+          git checkout master
+          ls  deidentify_templates/* > /workspace/dlp-diff.txt
+          ls  inspect_templates/* >> /workspace/dlp-diff.txt
           cat /workspace/dlp-diff.txt
     - name: 'gcr.io/bipin-dev/dp-test-python'
       entrypoint: bash
       args:
         - '-c'
         - |
-          cd /workspace/DLPTemplates/tests
+          cd /workspace/dDLPTemplates/tests
           pytest -m build -s
       id: 'Test'
     - name: 'gcr.io/bipin-dev/zip'
@@ -30,4 +29,4 @@ steps:
 artifacts:
   objects:
     location: 'gs://${_ARTIFACT_REPO}/${SHORT_SHA}'
-    paths: ['/workspace/package/DLPTemplates.zip']
+    paths: ['/workspace/dlp.zip']
