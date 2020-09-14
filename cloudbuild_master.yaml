@@ -16,7 +16,7 @@ steps:
       args:
         - '-c'
         - |
-          cd /workspace/dDLPTemplates/tests
+          cd /workspace/DLPTemplates/tests
           pytest -m build -s
       id: 'Test'
     - name: 'gcr.io/bipin-dev/zip'
