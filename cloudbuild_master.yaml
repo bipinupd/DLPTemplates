@@ -8,7 +8,7 @@ steps:
           git clone https://github.com/bipinupd/DLPTemplates.git
           cd DLPTemplates/
           git checkout master
-          ls deidentify_templates/*.json > /workspace/dlp-diff.txt
+          ls deIdentify_templates/*.json > /workspace/dlp-diff.txt
           ls inspect_templates/*.json >> /workspace/dlp-diff.txt
           cat /workspace/dlp-diff.txt
     - name: 'gcr.io/bipin-dev/dp-test-python'
