@@ -14,7 +14,7 @@ steps:
         cat deidentify_templates/*.json | jq '.deidentifyTemplate.deidentifyConfig.recordTransformations.fieldTransformations | . [].primitiveTransformation | . [].cryptoKey.kmsWrapped.wrappedKey' |  sed 's/\"{{//g' | cut -d '.' -f 1 | sort -u >> dlp_secret
     - name: node
       id: 'Generate DeIdentification templates'
-      ntrypoint: bash
+      entrypoint: bash
       args:
       - '-c'
       - |
