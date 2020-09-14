@@ -4,8 +4,8 @@ mkdir -p /workspace/package/DLPTemplates/tests/utils
 mkdir -p /workspace/package/DLPTemplates/tests/it-test
 cd /workspace/DLPTemplates/
 cp -R scripts/ /workspace/package/DLPTemplates/scripts/
-cp -R tests/ /workspace/package/DLPTemplates/tests/
-cp -R cloudbuild* /workspace/package/DLPTemplates/dlp/
+cp tests/* /workspace/package/DLPTemplates/tests/
+cp cloudbuild* /workspace/package/DLPTemplates/
 input="/workspace/dlp-diff.txt"
 while IFS= read -r line
 do
