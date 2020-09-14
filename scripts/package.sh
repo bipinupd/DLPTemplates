@@ -10,6 +10,7 @@ input="/workspace/dlp-diff.txt"
 cd /workspace/DLPTemplates
 while IFS= read -r line
 do
+  echo "Example ...."
   echo "$line"
   subfolder=$(echo "$line" | cut -d '/' -f 2)
   if [[ "$subfolder" == "deIdentify_templates" ]]; then
@@ -27,5 +28,6 @@ do
     cp "tests/it-test/$it_test_file" "/workspace/package/DLPTemplates/tests/it-test/"
   fi
 done < "$input"
-cd /workspace/package
+cd /workspace/package/
+ls
 zip -r DLPTemplates.zip DLPTemplates/

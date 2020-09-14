@@ -19,7 +19,7 @@ steps:
           cd /workspace/DLPTemplates/tests
           pytest -m build -s
       id: 'Test'
-    - name: 'gcr.io/bipin-dev/zip'
+    - name: 'gcr.io/bipin-dev/dlp_image_build'
       entrypoint: bash
       args:
         - '-c'
