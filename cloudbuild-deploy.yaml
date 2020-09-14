@@ -1,7 +1,7 @@
 steps:
     - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
       id: 'Download DLP Artifact'
-      args: ['gsutil', 'cp', 'gs://${_ARTIFACT_REPO}/${_SHORT_SHA}/dlp.zip', '/workspace/dlp.zip']
+      args: ['gsutil', 'cp', 'gs://${_ARTIFACT_REPO}/${_SHORT_SHA}/DLPTemplates.zip', '/workspace/DLPTemplates.zip']
     - name: 'gcr.io/${PROJECT_ID}/zip'
       id: 'Unzip & Identify Wrapped Keys Required'
       entrypoint: bash
@@ -9,8 +9,8 @@ steps:
       - '-c'
       - |
         cd /workspace/
-        unzip -f dlp.zip
-        cd /workspace/dlp
+        unzip -f DLPTemplates.zip
+        cd /workspace/DLPTemplates
         cat deidentify_templates/*.json | jq '.deidentifyTemplate.deidentifyConfig.recordTransformations.fieldTransformations | . [].primitiveTransformation | . [].cryptoKey.kmsWrapped.wrappedKey' |  sed 's/\"{{//g' | cut -d '.' -f 1 | sort -u >> dlp_secret
     - name: node
       id: 'Generate DeIdentification templates'
@@ -18,19 +18,19 @@ steps:
       args:
       - '-c'
       - |
-        cd /workspace/dlp/scripts/generate_templates
+        cd /workspace/DLPTemplates/scripts/generate_templates
         npm install
-        secret_names = tr '\n' ',' < /workspace/dlp/dlp_secret | sed 's/,$/\n/'
-        node collect_secret.js -p ${__WORK} -d ../../deIdentify_templates -s $secret_names
+        secret_names = tr '\n' ',' < /workspace/DLPTemplates/dlp_secret | sed 's/,$/\n/'
+        node collect_secret.js -p ${_PROJECTID} -d ../../deIdentify_templates -s $secret_names
     - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
       id: 'Deploy Artifacts'
       entrypoint: bash
       args:
         - '-c'
         - |
-          cd /workspace/dlp
-          deidentify_status=$(bash /workspace/dlp/scripts/deidentify_script.sh $_WORK)
-          inspect_status=$(bash /workspace/dlp/scripts/inspect_script.sh $_WORK)
+          cd /workspace/DLPTemplates
+          deidentify_status=$(bash /workspace/DLPTemplates/scripts/deidentify_script.sh $_PROJECTID)
+          inspect_status=$(bash /workspace/DLPTemplates/scripts/inspect_script.sh $_PROJECTID)
           if [[ $deidentify_status -eq "0" ]] && [[ $inspect_status -eq "0" ]];
           then
             exit 0
@@ -42,8 +42,8 @@ steps:
       args:
       - '-c'
       - |
-        cd /workspace/dlp/tests
+        cd /workspace/DLPTemplates/tests
         if [ "$(ls -A it-test/)" ]; then
-          pytest -m smoke --project_id=$_WORK -s
+          pytest -m smoke --project_id=$_PROJECTID -s
         fi
       id: 'IT/Smoke Test'
