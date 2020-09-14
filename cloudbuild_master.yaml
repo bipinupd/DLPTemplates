@@ -29,4 +29,4 @@ steps:
 artifacts:
   objects:
     location: 'gs://${_ARTIFACT_REPO}/${SHORT_SHA}'
-    paths: ['/workspace/dlp.zip']
+    paths: ['/workspace/package/DLPTemplates.zip']
