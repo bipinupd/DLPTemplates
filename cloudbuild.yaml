@@ -1,0 +1,33 @@
+steps:
+    - name: 'gcr.io/cloud-builders/git'
+      entrypoint: bash
+      id: 'Checkout Code'
+      args:
+        - '-c'
+        - |
+          git clone https://github.com/bipinupd/datalake-repo.git
+          cd datalake-repo/
+          git checkout $_BRANCHNAME
+          git config pull.rebase false
+          git pull origin $_BRANCHNAME
+          git diff --name-only $_BRANCHNAME master -- dlp/ > /workspace/dlp-diff.txt
+          cat /workspace/dlp-diff.txt
+    - name: 'gcr.io/bipin-dev/dp-test-python'
+      entrypoint: bash
+      args:
+        - '-c'
+        - |
+          cd /workspace/datalake-repo/dlp/tests
+          pytest -m build -s
+      id: 'Test'
+    - name: 'gcr.io/bipin-dev/zip'
+      entrypoint: bash
+      args:
+        - '-c'
+        - |
+          bash /workspace/datalake-repo/dlp/scripts/package.sh
+      id: 'Deployable DLP artifacts'
+artifacts:
+  objects:
+    location: 'gs://${_ARTIFACT_REPO}/${_SHORT_SHA}'
+    paths: ['/workspace/dlp.zip']

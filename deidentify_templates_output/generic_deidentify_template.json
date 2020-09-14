@@ -1,0 +1,47 @@
+{
+"deidentifyTemplate": {
+"displayName": "Config to DeIdentify Sample Dataset",
+"description": "De-identifies Eamil and username",
+"deidentifyConfig": {
+"recordTransformations": {
+"fieldTransformations": [
+{
+	"fields": [
+		{
+			"name": "Email"
+		}
+	],
+	"primitiveTransformation": {
+		"cryptoHashConfig": {
+			"cryptoKey": {
+				"kmsWrapped": {
+					"wrappedKey":"CiQAxxaomjCDHgtPAPlk9HO8MnI9xkR/jN3Sf94SpCsQZqeoOxwSSQCD6fPr8qP1O3Fe01ABlqiJNgPW84BmMA5dnB6aYj+BuL0xmPdMNGSV6cuKlgVgTmhKdPIEsZbxjiSdIb9gSwsM44OBRdyDxCE=",
+					"cryptoKeyName":"projects/bipin-dev/locations/global/keyRings/dlp_template_keys/cryptoKeys/EMAIL_KEY"
+				}
+			}
+		}
+	}
+},
+{
+	"fields": [
+		{
+			"name": "UserName"
+		}
+	],
+	"primitiveTransformation": {
+		"cryptoDeterministicConfig": {
+			"cryptoKey": {
+				"kmsWrapped": {
+					"wrappedKey":"CiQABMy+xHukQhJ2WxGyylzz5mUIq4A+cu478/FX0zhTcmzlBlgSSQCId2EsHjF0iK5dwbtTqTbJj2DbZnv97sDIOwU5d8Y+i4A4Cvg1928cRIo0CdilD8dJlBStOcZZdLAIjOO3uAjBMhPyq332kms=",
+					"cryptoKeyName":"projects/bipin-dev/locations/global/keyRings/dlp_template_keys/cryptoKeys/USERNAME_KEY"
+				}
+			}
+		}
+	}
+}
+]
+}
+}
+},
+"templateId": "generic_deidentify_template"
+}

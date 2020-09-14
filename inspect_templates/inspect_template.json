@@ -1,0 +1,22 @@
+{
+  "inspectTemplate": {
+    "displayName": "generic template inspection",
+    "description": "generic template for inspection with infotypes",
+    "inspectConfig": {
+      "infoTypes": [
+        {
+          "name": "AGE"
+        },
+        {
+          "name": "GENDER"
+        },
+        {
+          "name": "EMAIL_ADDRESS"
+        }
+      ],
+      "minLikelihood": "POSSIBLE",
+      "limits": {}
+    }
+  },
+  "templateId": "generic_inspect_template"
+}
