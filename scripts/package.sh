@@ -7,10 +7,10 @@ cp -R scripts/ /workspace/package/DLPTemplates/scripts/
 cp tests/* /workspace/package/DLPTemplates/tests/
 cp cloudbuild* /workspace/package/DLPTemplates/
 input="/workspace/dlp-diff.txt"
-cat /workspace/dlp-diff.txt
 cd /workspace/DLPTemplates
 while IFS= read -r line
 do
+  echo "$line"
   subfolder=$(echo "$line" | cut -d '/' -f 2)
   if [[ "$subfolder" == "deIdentify_templates" ]]; then
     echo "$line"
