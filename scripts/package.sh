@@ -5,11 +5,9 @@ mkdir -p /workspace/dlp/tests/it-test
 cd /workspace/dlp
 find . -type f -name '*.*' -delete
 cd /workspace/datalake-repo/
-cp -R dlp/scripts/* /workspace/dlp/scripts/
-cp dlp/tests/conftest.py /workspace/dlp/tests/
-cp dlp/tests/pytest.ini /workspace/dlp/tests/
-cp dlp/tests/utils/*.py /workspace/dlp/tests/utils/
-cp dlp/cloudbuild* /workspace/dlp/
+cp -R dlp/scripts/ /workspace/dlp/scripts/
+cp -R dlp/tests/ /workspace/dlp/tests/
+cp -R dlp/cloudbuild* /workspace/dlp/
 input="/workspace/dlp-diff.txt"
 while IFS= read -r line
 do
