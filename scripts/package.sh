@@ -1,5 +1,5 @@
 #!/bin/bash
-mkdir -p /workspace/package/DLPTemplates/{deIdentify_templates,inspect_templates,scripts}
+mkdir -p /workspace/package/DLPTemplates/{deIdentify_templates,inspect_templates}
 mkdir -p /workspace/package/DLPTemplates/tests/utils
 mkdir -p /workspace/package/DLPTemplates/tests/it-test
 cd /workspace/DLPTemplates/

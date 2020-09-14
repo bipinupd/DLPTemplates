@@ -1,24 +1,26 @@
 steps:
     - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
       id: 'Download DLP Artifact'
-      args: ['gsutil', 'cp', 'gs://${_ARTIFACT_REPO}/${_SHORT_SHA}/DLPTemplates.zip', '/workspace/DLPTemplates.zip']
-    - name: 'gcr.io/${PROJECT_ID}/zip'
-      id: 'Unzip & Identify Wrapped Keys Required'
+      args: ['gsutil', 'cp', 'gs://${_ARTIFACT_REPO}/${_SHORT_SHA}/DLPTemplates.zip', 'DLPTemplates.zip']
+    - name: 'gcr.io/bipin-dev/dlp_image_build'
+      id: 'Unzip and Identify Wrapped Keys Required'
       entrypoint: bash
       args:
       - '-c'
       - |
-        cd /workspace/
-        unzip -f DLPTemplates.zip
-        cd /workspace/DLPTemplates
-        cat deidentify_templates/*.json | jq '.deidentifyTemplate.deidentifyConfig.recordTransformations.fieldTransformations | . [].primitiveTransformation | . [].cryptoKey.kmsWrapped.wrappedKey' |  sed 's/\"{{//g' | cut -d '.' -f 1 | sort -u >> dlp_secret
-    - name: node
+        unzip DLPTemplates.zip
+        cd /workspace/DLPTemplates/
+        ls
+        cat deIdentify_templates/*.json | jq '.deidentifyTemplate.deidentifyConfig.recordTransformations.fieldTransformations | . [].primitiveTransformation | . [].cryptoKey.kmsWrapped.wrappedKey' |  sed 's/\"{{//g' | cut -d '.' -f 1 | sort -u > /workspace/DLPTemplates/dlp_secret
+        cat /workspace/DLPTemplates/dlp_secret
+    - name: 'gcr.io/bipin-dev/dlp_image_build'
       id: 'Generate DeIdentification templates'
       entrypoint: bash
       args:
       - '-c'
       - |
-        cd /workspace/DLPTemplates/scripts/generate_templates
+        cd /workspace/DLPTemplates/scripts/generate_template
+        ls
         npm install
         secret_names = tr '\n' ',' < /workspace/DLPTemplates/dlp_secret | sed 's/,$/\n/'
         node collect_secret.js -p ${_PROJECTID} -d ../../deIdentify_templates -s $secret_names
