@@ -19,7 +19,7 @@ class GenericDeIdentifyDLPTest:
                 ]
             ]
         }
-        response = deindentify(data, project, self.template_id)
+        response = self.deindentify(data, project, self.template_id)
         assert response.item.table.rows[0].values[0].string_value != "test@test.com"
 
     def test_deIdentification_UserName(self, project):
@@ -33,7 +33,7 @@ class GenericDeIdentifyDLPTest:
                 ]
             ]
         }
-        response = deindentify(data, project, self.template_id)
+        response = self.deindentify(data, project, self.template_id)
         assert response.item.table.rows[0].values[0].string_value != "test_user"
         
     def deindentify(self, data, project_id, template_id):
