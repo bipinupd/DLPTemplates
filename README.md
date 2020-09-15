@@ -1,4 +1,4 @@
-##Data Loss Prevention Templates
+## Data Loss Prevention Templates
 
 The Cloud DLP supports two types of templates:
 
