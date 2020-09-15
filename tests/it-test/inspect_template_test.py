@@ -1,4 +1,4 @@
-from utils import common
+from tests.mytestutils import common
 from pytest import mark
 
 @mark.smoke
