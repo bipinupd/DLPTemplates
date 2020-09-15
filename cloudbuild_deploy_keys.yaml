@@ -1,0 +1,42 @@
+steps:
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: bash
+    id: 'Create Keyring If not present'
+    args:
+      - '-c'
+      - |
+        count=$(gcloud kms keyrings list --project=${_PROJECTID} --location=$_LOCATION --filter=$_KEYRING | wc -l)
+        if [ $count==0 ]; then
+          gcloud kms keyrings create $_KEYRING --location=$_LOCATION --project=${_PROJECTID}
+        fi
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: bash
+    args:
+      - '-c'
+      - |
+        count=$(gcloud kms keys list --project=${_PROJECTID} --keyring=$_KEYRING --location=$_LOCATION --filter=$_KEY | wc -l)
+        if [ $count==0 ]; then
+          gcloud kms keys create KEY --project=${_PROJECTID} --keyring=$_KEYRING --location=$_LOCATION --purpose=encryption --label=DLP_Keys
+        fi        
+        if [ $_ROTATE_KEY=="true" ]; then
+          gcloud kms keys versions create --project=${_PROJECTID} --key=$_KEY --keyring=$_KEYRING --location=$_LOCATION 
+        fi
+    id: 'Create or Rotate the Key'
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: bash
+    args:
+      - '-c'
+      - |
+        export API_KEY=$(gcloud auth print-access-token)
+        export KEK_API="https://cloudkms.googleapis.com/v1/projects/${_PROJECTID}/locations/${_LOCATION}/keyRings/${_KEYRING}/cryptoKeys/${_KEY}:encrypt"
+        curl -X POST -H "Content-Type: application/json" \
+            -H "Authorization: Bearer ${API_KEY}" \
+            "${KEK_API}" \
+            -d '{"plaintext":"${_DEK}"}' \
+            -o /tmp/temp.json
+        secret_count=$(gcloud secrets list --filter=MMM1 | wc -l)
+        if [ $secret_count==0 ]; then
+          gcloud secrets create ${_KEY} --data-file=/tmp/temp.json --project=${_PROJECTID}
+        fi
+        gcloud secrets versions add ${_KEY} --data-file=/tmp/temp.json --project=${_PROJECTID}
+    id: 'Create Wrapped Key & Store in Secret Manager'
