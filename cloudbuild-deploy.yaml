@@ -12,7 +12,6 @@ steps:
         cd /workspace/DLPTemplates/
         ls
         cat deIdentify_templates/*.json | jq '.deidentifyTemplate.deidentifyConfig.recordTransformations.fieldTransformations | . [].primitiveTransformation | . [].cryptoKey.kmsWrapped.wrappedKey' |  sed 's/\"{{//g' | cut -d '.' -f 1 | sort -u > /workspace/DLPTemplates/dlp_secret
-        cat /workspace/DLPTemplates/dlp_secret
     - name: 'gcr.io/bipin-dev/dlp_image_build'
       id: 'Generate DeIdentification templates'
       entrypoint: bash
