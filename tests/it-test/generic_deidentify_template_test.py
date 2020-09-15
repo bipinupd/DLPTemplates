@@ -1,5 +1,5 @@
 from pytest import mark
-from tests.mytestutils import common
+from mytestutils import common
 
 @mark.smoke
 class GenericDeIdentifyDLPTest:
