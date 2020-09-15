@@ -41,7 +41,6 @@ function getAllKeys(data) {
 
 //Repalce the value of KMS wrapped key and crypto key name in DLP templates 
 const generateDLPTemplates = async () => {
-    await getAllWrapperdKeysFromSecretManager();
     const outputDeidentifyDir = deidentifyTemplateDir + "_output";
     let filenames = fs.readdirSync(deidentifyTemplateDir);
     const ST = require('selecttransform').SelectTransform;
