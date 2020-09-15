@@ -16,7 +16,7 @@ steps:
       - |
         count=$(gcloud kms keys list --project=${_PROJECTID} --keyring=$_KEYRING --location=$_LOCATION --filter=$_KEY | wc -l)
         if [ $count==0 ]; then
-          gcloud kms keys create KEY --project=${_PROJECTID} --keyring=$_KEYRING --location=$_LOCATION --purpose=encryption --label=DLP_Keys
+          gcloud kms keys create KEY --project=${_PROJECTID} --keyring=$_KEYRING --location=$_LOCATION --purpose=encryption --labels=DLP_Keys
         fi        
         if [ $_ROTATE_KEY=="true" ]; then
           gcloud kms keys versions create --project=${_PROJECTID} --key=$_KEY --keyring=$_KEYRING --location=$_LOCATION 
