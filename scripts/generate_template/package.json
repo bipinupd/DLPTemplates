@@ -3,10 +3,11 @@
   "version": "0.0.1",
   "main": "collect_secret.js",
   "dependencies": {
-    "selecttransform": "1.5.7",
     "@google-cloud/secret-manager": "3.1.0",
-    "yargs": "13.2",
     "browserify": "10.0.0",
-    "typescript": "2.0.0"
+    "selecttransform": "1.5.7",
+    "stjs": "0.0.5",
+    "typescript": "2.0.0",
+    "yargs": "13.2"
   }
 }
