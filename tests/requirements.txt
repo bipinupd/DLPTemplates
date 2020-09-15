@@ -1,2 +1,0 @@
-pytest==5.4.3
-google-cloud-dlp==2.0.0
