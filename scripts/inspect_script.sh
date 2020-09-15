@@ -3,7 +3,7 @@ PROJECT_ID=$1
 API_ROOT_URL="https://dlp.googleapis.com"
 ALL_API_CALL_SUCCESS=0
 
-for template in `find /workspace/DLPTemplates/inspect-templates -name *.json`; do
+for template in `find /workspace/DLPTemplates/inspect_templates -name *.json`; do
     API_KEY=`gcloud auth print-access-token`
     TEMPLATE_API="${API_ROOT_URL}/v2/projects/${PROJECT_ID}/inspectTemplates"
     templateId=$(cat "$template" | jq '.templateId' | sed 's/"//g')
