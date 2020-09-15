@@ -48,7 +48,7 @@ const generateDLPTemplates = async () => {
     filenames.forEach((file) => {        
         const template=fs.readFileSync(deidentifyTemplateDir + path.sep + file,"utf-8")
         const keys = getAllKeys(JSON.paser(template));
-        await getValuesFromSecretManager(keys)
+        getValuesFromSecretManager(keys);
         const dlpTemplate = st.transformSync(template, data)
         fs.writeFile(outputDeidentifyDir + path.sep + file, dlpTemplate, function (err) {
         if (err) throw err;
