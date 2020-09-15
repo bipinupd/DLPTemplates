@@ -29,6 +29,8 @@ steps:
       - |
         export API_KEY=$(gcloud auth print-access-token)
         export KEK_API="https://cloudkms.googleapis.com/v1/projects/${_PROJECTID}/locations/${_LOCATION}/keyRings/${_KEYRING}/cryptoKeys/${_KEY}:encrypt"
+        echo "$KEK_API"
+        echo "$API_KEY"
         curl -X POST -H "Content-Type: application/json" \
             -H "Authorization: Bearer ${API_KEY}" \
             "${KEK_API}" \
