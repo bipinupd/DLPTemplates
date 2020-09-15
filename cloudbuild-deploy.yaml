@@ -20,11 +20,11 @@ steps:
       - '-c'
       - |
         cd /workspace/DLPTemplates/scripts/generate_template
-        ls
+        mkdir /workspace/DLPTemplates/deIdentify_templates_output
         npm install
-        secret_names = tr '\n' ',' < /workspace/DLPTemplates/dlp_secret | sed 's/,$/\n/'
+        export secret_names=$(tr '\n' ',' < /workspace/DLPTemplates/dlp_secret | sed 's/,$/\n/')
         node collect_secret.js -p ${_PROJECTID} -d ../../deIdentify_templates -s $secret_names
-    - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    - name: 'gcr.io/bipin-dev/dlp_image_build'
       id: 'Deploy Artifacts'
       entrypoint: bash
       args:
