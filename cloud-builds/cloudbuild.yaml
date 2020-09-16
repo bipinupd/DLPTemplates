@@ -10,8 +10,8 @@ steps:
           git checkout $_BRANCHNAME
           git config pull.rebase false
           git pull origin $_BRANCHNAME
-          git diff --name-only $_BRANCHNAME master -- / > /workspace/dlp-diff.txt
-          git diff master $_BRANCHNAME --name-only --diff-filter=D > /workspace/deleted_files.txt
+          git diff --name-only $_BRANCHNAME master > /workspace/dlp-diff.txt
+          git diff $_BRANCHNAME master --name-only --diff-filter=D > /workspace/deleted_files.txt
     - name: 'gcr.io/bipin-dev/dp-test-python'
       entrypoint: bash
       args:
