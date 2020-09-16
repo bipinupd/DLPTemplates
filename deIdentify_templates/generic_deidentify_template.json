@@ -1,0 +1,47 @@
+{
+    "deidentifyTemplate": {
+    "displayName": "Config to DeIdentify Sample Dataset",
+    "description": "De-identifies Eamil and username",
+    "deidentifyConfig": {
+    "recordTransformations": {
+    "fieldTransformations": [
+    {
+    "fields": [
+    {
+    "name": "Email"
+    }
+    ],
+    "primitiveTransformation": {
+    "cryptoHashConfig": {
+    "cryptoKey": {
+    "kmsWrapped": {
+    "wrappedKey": "EMAIL_WRAPPED_KEY",
+    "cryptoKeyName": "EMAIL_CRYPTO_NAME"
+    }
+    }
+    }
+    }
+    },
+    {
+    "fields": [
+    {
+    "name": "UserName"
+    }
+    ],
+    "primitiveTransformation": {
+    "cryptoDeterministicConfig": {
+    "cryptoKey": {
+    "kmsWrapped": {
+    "wrappedKey": "USERNAME_WRAPPED_KEY",
+    "cryptoKeyName": "USERNAME_CRYPTO_NAME"
+    }
+    }
+    }
+    }
+    }
+    ]
+    }
+    }
+    },
+    "templateId": "generic_deidentify_template"
+    }

@@ -49,4 +49,4 @@ class GenericDeIdentifyDLPTest:
         parent = dlp.project_path(project_id)
         deidentify_template=f"projects/{project_id}/deidentifyTemplates/{template_id}"
         response = dlp.deidentify_content(parent, deidentify_template_name=deidentify_template,item=item)
-        return response    
+        return response
