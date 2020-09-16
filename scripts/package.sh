@@ -6,7 +6,6 @@ cd /workspace/DLPTemplates/
 cp /workspace/deleted_files.txt /workspace/package/DLPTemplates/
 cp -R scripts/ /workspace/package/DLPTemplates/scripts/
 cp -R tests/* /workspace/package/DLPTemplates/tests/
-cp -R cloudbuild* /workspace/package/DLPTemplates/
 input="/workspace/dlp-diff.txt"
 cd /workspace/DLPTemplates
 while IFS= read -r line
@@ -19,7 +18,7 @@ do
       it_test_file="${template_file%.*}"_test.py
       cp "tests/it-test/$it_test_file" "/workspace/package/DLPTemplates/tests/it-test/"
     else
-      $(echo "$line" | cut -d '/' -f 2 | sed -e 's/.json//g') >> /workspace/package/DLPTemplates/deIdentify_templates_to_delete
+      $(echo "$line" | cut -d '/' -f 2 | sed -e 's/.json//g') >> "/workspace/package/DLPTemplates/deIdentify_templates_to_delete"
     fi
   fi
   if [[ "$subfolder" == "inspect_templates" ]]; then
@@ -29,7 +28,7 @@ do
       it_test_file="${template_file%.*}"_test.py
       cp "tests/it-test/$it_test_file" "/workspace/package/DLPTemplates/tests/it-test/"
     else
-      $(echo "$line" | cut -d '/' -f 2 | sed -e 's/.json//g') >> /workspace/package/DLPTemplates/inspect_templates_to_delete
+      $(echo "$line" | cut -d '/' -f 2 | sed -e 's/.json//g') >> "/workspace/package/DLPTemplates/inspect_templates_to_delete"
     fi
   fi
 done < "$input"
