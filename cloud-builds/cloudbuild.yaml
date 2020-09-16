@@ -10,6 +10,7 @@ steps:
           git checkout $_BRANCHNAME
           git pull origin $_BRANCHNAME
           git diff --name-only $_BRANCHNAME master > "/workspace/dlp-diff.txt"
+          cat /workspace/dlp-diff.txt
     - name: 'gcr.io/bipin-dev/dp-test-python'
       entrypoint: bash
       args:
@@ -24,6 +25,7 @@ steps:
         - '-c'
         - |
           bash /workspace/DLPTemplates/scripts/package.sh
+          cat /workspace/package/DLPTemplates/deIdentify_templates_to_delete
       id: 'Deployable DLP artifacts'
 artifacts:
   objects:

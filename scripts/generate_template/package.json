@@ -4,7 +4,8 @@
   "main": "collect_secret.js",
   "dependencies": {
     "@google-cloud/secret-manager": "3.1.0",
-    "browserify": "10.0.0",
+    "browserify": "^16.5.2",
+    "minimatch": "3.0.2",
     "selecttransform": "1.5.7",
     "stjs": "0.0.5",
     "typescript": "2.0.0",

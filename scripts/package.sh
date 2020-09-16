@@ -1,10 +1,9 @@
 #!/bin/bash
 mkdir -p /workspace/package/DLPTemplates/{deIdentify_templates,inspect_templates}
-mkdir -p /workspace/package/DLPTemplates/tests/utils
-mkdir -p /workspace/package/DLPTemplates/tests/it-test
+mkdir -p /workspace/package/DLPTemplates/tests/{utils,it-test}
 cd /workspace/DLPTemplates/
 cp -R scripts/ /workspace/package/DLPTemplates/scripts/
-cp -R tests/* /workspace/package/DLPTemplates/tests/
+cp tests/*.* /workspace/package/DLPTemplates/tests/
 touch /workspace/package/DLPTemplates/deIdentify_templates_to_delete
 touch /workspace/package/DLPTemplates/inspect_templates_to_delete
 input="/workspace/dlp-diff.txt"

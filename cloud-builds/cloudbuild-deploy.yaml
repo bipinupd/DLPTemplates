@@ -24,9 +24,11 @@ steps:
       - '-c'
       - |
         cd /workspace/DLPTemplates
-        deidentify_status=$(bash /workspace/DLPTemplates/scripts/deidentify_script.sh $_PROJECTID)
-        inspect_status=$(bash /workspace/DLPTemplates/scripts/inspect_script.sh $_PROJECTID)
-        if [[ $deidentify_status -eq "0" ]] && [[ $inspect_status -eq "0" ]];
+        deidentify_template=$(bash /workspace/DLPTemplates/scripts/deidentify_script.sh $_PROJECTID)
+        deidentify_status=$?
+        inspect_template=$(bash /workspace/DLPTemplates/scripts/inspect_script.sh $_PROJECTID)
+        inspect_status=$?
+        if [[ "$deidentify_status" -eq 0 ]] && [[ "$inspect_status" -eq 0 ]];
         then
           exit 0
         else

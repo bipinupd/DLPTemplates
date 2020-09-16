@@ -36,14 +36,7 @@ do
   if [[ ! -z "$line" ]]; then
     API_KEY=`gcloud auth print-access-token`
     TEMPLATE_API="${API_ROOT_URL}/v2/projects/${PROJECT_ID}/deidentifyTemplates/$line"
-    api_status=$(curl -X DELETE -H "Content-Type: application/json" \
-    -H "Authorization: Bearer ${API_KEY}"  "${TEMPLATE_API}" \
-    --write-out '%{http_code}' --silent --output /dev/null)
-  
-    if [[ ${api_status} -gt 299 ]]; then
-      echo "failed deleting $template" 
-      ALL_API_CALL_SUCCESS=-1
-    fi
+    curl -X DELETE -H "Authorization: Bearer ${API_KEY}" "${TEMPLATE_API}" 
   fi
 done < "/workspace/DLPTemplates/deIdentify_templates_to_delete"
 
