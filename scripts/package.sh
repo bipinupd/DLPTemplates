@@ -5,6 +5,8 @@ mkdir -p /workspace/package/DLPTemplates/tests/it-test
 cd /workspace/DLPTemplates/
 cp -R scripts/ /workspace/package/DLPTemplates/scripts/
 cp -R tests/* /workspace/package/DLPTemplates/tests/
+touch /workspace/package/DLPTemplates/deIdentify_templates_to_delete
+touch /workspace/package/DLPTemplates/inspect_templates_to_delete
 input="/workspace/dlp-diff.txt"
 cd /workspace/DLPTemplates
 while IFS= read -r line
