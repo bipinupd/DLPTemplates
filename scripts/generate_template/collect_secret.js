@@ -10,7 +10,6 @@ const options = yargs
 
 const projectId = options.project;
 const deidentifyTemplateDir = options.deidentify_templates_dir;
-const secretNames = options.secret.split(",");
 const {SecretManagerServiceClient} = require('@google-cloud/secret-manager');
 const client = new SecretManagerServiceClient();
 var data={};
