@@ -1,6 +1,7 @@
 const fs = require('fs')
 const path = require('path');
 const yargs = require("yargs");
+const JsonTemplate = require('stjs')
 
 const options = yargs
  .usage("Usage: -p project")
@@ -29,13 +30,13 @@ const getValuesFromSecretManager = async (secretNames) => {
       await accessSecretVersion(secretName, data);
     }
 }
-function getAllKeys(data) {
+const getAllKeys = async (data) => {
     var keys=[];
     var elements = JsonTemplate.select(data, function(key, val) {
       return /^{{.*}}$/.test(val);
     })
     elements.values().forEach((element) => { keys.push(element.replace("{{","").replace("}}","").split(".")[0]);})
-    return keys;
+    await getValuesFromSecretManager(keys);
 }
 
 //Repalce the value of KMS wrapped key and crypto key name in DLP templates 
@@ -44,10 +45,9 @@ const generateDLPTemplates = async () => {
     let filenames = fs.readdirSync(deidentifyTemplateDir);
     const ST = require('selecttransform').SelectTransform;
     const st = new ST();
-    filenames.forEach((file) => {        
+    filenames.forEach(async(file) => {        
         const template=fs.readFileSync(deidentifyTemplateDir + path.sep + file,"utf-8")
-        const keys = getAllKeys(JSON.paser(template));
-        getValuesFromSecretManager(keys);
+        await getAllKeys(JSON.parse(template));
         const dlpTemplate = st.transformSync(template, data)
         fs.writeFile(outputDeidentifyDir + path.sep + file, dlpTemplate, function (err) {
         if (err) throw err;
