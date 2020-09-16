@@ -17,7 +17,7 @@ do
       it_test_file="${template_file%.*}"_test.py
       cp "tests/it-test/$it_test_file" "/workspace/package/DLPTemplates/tests/it-test/"
     else
-      $(echo "$line" | cut -d '/' -f 2 | sed -e 's/.json//g') >> "/workspace/package/DLPTemplates/deIdentify_templates_to_delete"
+      echo "$line" | cut -d '/' -f 2 | sed -e 's/.json//g' >> "/workspace/package/DLPTemplates/deIdentify_templates_to_delete"
     fi
   fi
   if [[ "$subfolder" == "inspect_templates" ]]; then
@@ -27,7 +27,7 @@ do
       it_test_file="${template_file%.*}"_test.py
       cp "tests/it-test/$it_test_file" "/workspace/package/DLPTemplates/tests/it-test/"
     else
-      $(echo "$line" | cut -d '/' -f 2 | sed -e 's/.json//g') >> "/workspace/package/DLPTemplates/inspect_templates_to_delete"
+      echo "$line" | cut -d '/' -f 2 | sed -e 's/.json//g' >> "/workspace/package/DLPTemplates/inspect_templates_to_delete"
     fi
   fi
 done < "$input"
