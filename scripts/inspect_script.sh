@@ -44,6 +44,6 @@ do
             ALL_API_CALL_SUCCESS=-1
         fi
     fi
-done < /workspace/DLPTemplates/inspect_templates_to_delete
+done < "/workspace/DLPTemplates/inspect_templates_to_delete"
 
 exit $ALL_API_CALL_SUCCESS

@@ -3,7 +3,6 @@ mkdir -p /workspace/package/DLPTemplates/{deIdentify_templates,inspect_templates
 mkdir -p /workspace/package/DLPTemplates/tests/utils
 mkdir -p /workspace/package/DLPTemplates/tests/it-test
 cd /workspace/DLPTemplates/
-cp /workspace/deleted_files.txt /workspace/package/DLPTemplates/
 cp -R scripts/ /workspace/package/DLPTemplates/scripts/
 cp -R tests/* /workspace/package/DLPTemplates/tests/
 input="/workspace/dlp-diff.txt"

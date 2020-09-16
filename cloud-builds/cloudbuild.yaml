@@ -8,9 +8,8 @@ steps:
           git clone https://github.com/bipinupd/DLPTemplates.git
           cd DLPTemplates/
           git checkout $_BRANCHNAME
-          git config pull.rebase false
           git pull origin $_BRANCHNAME
-          git diff --name-only $_BRANCHNAME master > /workspace/dlp-diff.txt
+          git diff --name-only $_BRANCHNAME master > "/workspace/dlp-diff.txt"
     - name: 'gcr.io/bipin-dev/dp-test-python'
       entrypoint: bash
       args:
