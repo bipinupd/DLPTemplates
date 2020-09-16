@@ -1,3 +1,4 @@
+
 {
   "inspectTemplate": {
     "displayName": "generic template inspection",
@@ -19,4 +20,6 @@
     }
   },
   "templateId": "generic_inspect_template"
-}
+} 
+
+
