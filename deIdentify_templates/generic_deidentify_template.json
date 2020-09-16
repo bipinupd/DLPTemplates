@@ -15,8 +15,8 @@
     "cryptoHashConfig": {
     "cryptoKey": {
     "kmsWrapped": {
-    "wrappedKey": "EMAIL_WRAPPED_KEY",
-    "cryptoKeyName": "EMAIL_CRYPTO_NAME"
+    "wrappedKey": "{{EMAIL_DLP_SECRET.ciphertext}}",
+    "cryptoKeyName": "{{EMAIL_DLP_SECRET.name}}"
     }
     }
     }
@@ -32,8 +32,8 @@
     "cryptoDeterministicConfig": {
     "cryptoKey": {
     "kmsWrapped": {
-    "wrappedKey": "USERNAME_WRAPPED_KEY",
-    "cryptoKeyName": "USERNAME_CRYPTO_NAME"
+    "wrappedKey": "{{USERNAME_DLP_SECRET.ciphertext}}",
+    "cryptoKeyName": "{{USERNAME_DLP_SECRET.name}}"
     }
     }
     }
