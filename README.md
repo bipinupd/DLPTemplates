@@ -16,6 +16,8 @@ The repository contians an example for deploying Data Loss Prevention Templates 
 
 For each field that require pseudonymization, create a Data encryption Key (DEK). Store the DEK in the secure place. DLP recommends to use KMS wrapped key for pseudonymization of data. The workflow diagram above creates a keyring if not present. Create a Key and generate the wrapped key. Finally, store the wrapped key in the secret manager.
 
+Cloud Build to create Keyring, key and to generate Key Encryption key and then finally store the KEK in Secret Manager is in `cloud-builds/cloudbuild_deploy_keys.yaml`.
+
 #### Deploy DLP Templates
 
 Read the KMSWrapped keys from the secret manager. Based on the data in secret manager, interpolate the JSON Template.
