@@ -40,5 +40,8 @@ steps:
       - '-c'
       - |
         cd /workspace/DLPTemplates/tests
-        pytest -m smoke --project_id=$_PROJECTID -s
+        if [[ $(ls it-test/ | wc -l) -gt 0 ]];
+        then
+          pytest -m smoke --project_id=$_PROJECTID -s
+        fi
       id: 'IT/Smoke Test'
