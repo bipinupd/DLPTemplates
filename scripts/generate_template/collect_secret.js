@@ -17,7 +17,6 @@ var data={};
 
 // Reads the secret and update the data
 async function accessSecretVersion(secretName, data) {
-  console.log(secretName)
   const [version] = await client.accessSecretVersion({
     name: 'projects/' + projectId + '/secrets/' + secretName + '/versions/latest',
   });

@@ -14,6 +14,7 @@ steps:
             git diff --name-only $BRANCH_NAME master > "/workspace/dlp-diff.txt"
           else
             git checkout master
+            git pull origin master
             ls deIdentify_templates/*.json > /workspace/dlp-diff.txt
             ls inspect_templates/*.json >> /workspace/dlp-diff.txt
           fi
