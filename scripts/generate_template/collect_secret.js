@@ -29,7 +29,7 @@ const getValuesFromSecretManager = async (secretNames) => {
       await accessSecretVersion(secretName, data);
     }
 }
-const getValuesFromSecretManager = async (template) => {
+const getValuesForVariables = async (template) => {
     var keys=[];
     var elements = JsonTemplate.select(template, function(key, val) {
       return /^{{.*}}$/.test(val);
@@ -46,7 +46,7 @@ const generateDLPTemplates = async () => {
     const st = new ST();
     filenames.forEach(async(file) => {        
         const template=fs.readFileSync(deidentifyTemplateDir + path.sep + file,"utf-8")
-        await getValuesFromSecretManager(JSON.parse(template));
+        await getValuesForVariables(JSON.parse(template));
         const dlpTemplate = st.transformSync(template, data)
         fs.writeFile(outputDeidentifyDir + path.sep + file, dlpTemplate, function (err) {
         if (err) throw err;
