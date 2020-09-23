@@ -1,5 +1,5 @@
 steps:
-    - name: 'gcr.io/${PROJECT_ID}/dlp_image_build'
+    - name: 'gcr.io/${PROJECT_ID}/dlp_image'
       id: 'Unzip and Identify Wrapped Keys Required'
       entrypoint: bash
       args:
@@ -7,7 +7,7 @@ steps:
       - |
         gsutil cp gs://${_ARTIFACT_REPO}/${_SHORT_SHA}/DLPTemplates.zip DLPTemplates.zip
         unzip DLPTemplates.zip
-    - name: 'gcr.io/${PROJECT_ID}/dlp_image_build'
+    - name: 'gcr.io/${PROJECT_ID}/dlp_image'
       id: 'Generate DeIdentification templates'
       entrypoint: bash
       args:
@@ -17,7 +17,7 @@ steps:
         mkdir /workspace/DLPTemplates/deIdentify_templates_output
         npm install
         node collect_secret.js -p ${_PROJECTID} -d ../../deIdentify_templates
-    - name: 'gcr.io/${PROJECT_ID}/dlp_image_build'
+    - name: 'gcr.io/${PROJECT_ID}/dlp_image'
       id: 'Deploy Artifacts'
       entrypoint: bash
       args:
@@ -34,7 +34,7 @@ steps:
         else
           exit -1
         fi
-    - name: 'gcr.io/${PROJECT_ID}/dp-test-python'
+    - name: 'gcr.io/${PROJECT_ID}/dlp_image'
       entrypoint: bash
       args:
       - '-c'

@@ -17,4 +17,4 @@ RUN curl -o /tmp/get-pip.py "https://bootstrap.pypa.io/get-pip.py" \
     && apt autoremove -y \
     && rm -rf /var/lib/apt/lists/*
 RUN pip install -r requirements.txt 
-ENTRYPOINT ["bash"]
+ENTRYPOINT [ "/bin/bash", "-l", "-c" ]
