@@ -38,6 +38,6 @@ do
     TEMPLATE_API="${API_ROOT_URL}/v2/projects/${PROJECT_ID}/deidentifyTemplates/$line"
     curl -X DELETE -H "Authorization: Bearer ${API_KEY}" "${TEMPLATE_API}" 
   fi
-done < "/workspace/DLPTemplates/deIdentify_templates_to_delete"
+done < "/workspace/DLPTemplates/deIdentify_templates_to_delete.txt"
 
 exit $ALL_API_CALL_SUCCESS
