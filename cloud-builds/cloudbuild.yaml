@@ -18,7 +18,7 @@ steps:
             ls deIdentify_templates/*.json > /workspace/dlp-diff.txt
             ls inspect_templates/*.json >> /workspace/dlp-diff.txt
           fi
-    - name: 'gcr.io/bipin-dev/dp-test-python'
+    - name: 'gcr.io/${PROJECT_ID}/dlp_image_build'
       entrypoint: bash
       args:
         - '-c'
@@ -26,7 +26,7 @@ steps:
           cd /workspace/DLPTemplates/tests
           pytest -m build -s
       id: 'Test'
-    - name: 'gcr.io/bipin-dev/dlp_image_build'
+    - name: 'gcr.io/${PROJECT_ID}/dlp_image_build'
       entrypoint: bash
       args:
         - '-c'
