@@ -32,7 +32,6 @@ steps:
         - '-c'
         - |
           bash /workspace/DLPTemplates/scripts/package.sh
-          cat /workspace/package/DLPTemplates/deIdentify_templates_to_delete
       id: 'Deployable DLP artifacts'
 artifacts:
   objects:
