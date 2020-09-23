@@ -22,7 +22,10 @@ The diagram below shows the workflow that generates data encryption key, keyring
 
 ![Workflow to generate keyring, key](./docs/GenerateKey.jpg)
 
-For each field that require pseudonymization, create a Data encryption Key (DEK). Store the DEK in secure place. DLP recommends to use KMS wrapped key for pseudonymization of data.
+For each field that require pseudonymization, create a Data encryption Key (DEK). One of the way to generate a DEK is using OpenSSL is shown below
+```export DEK=$(openssl rand -base64 32);```
+
+Store the DEK in secure place. DLP recommends to use KMS wrapped key for pseudonymization of data.
 
 * `cloudbuild_deploy_keys.yaml`: The deployment script creates the key-ring if not preset, key if not present and rotates the key if required. The build file generates the wrapped key based on the latest version of the key and data encryption key (DEK). It also stores the wrapped key in the Secret Manager. Parameters used in this cloud build are:
     * `_PROJECTID` : GCP Project Id where KMS key ring keys and secret manager are located.
